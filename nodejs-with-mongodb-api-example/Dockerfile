@@ -6,10 +6,15 @@ ADD . src/
 
 WORKDIR /src
 
-RUN npm i -g typescript
 
-RUN npm i 
+RUN npm i -g typescript nodemon --production --silent
+
+RUN npm i --production --silent
 
 RUN npm run build 
 
-CMD npm start
+# CMD npm start
+
+## DEVELOPMENT EXAMPLE
+
+CMD npm run dev

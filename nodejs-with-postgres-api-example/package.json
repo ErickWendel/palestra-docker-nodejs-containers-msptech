@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pm2-docker lib/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "dev:watch": "nodemon lib/index.js",
+    "dev": "concurrently npm:build:watch npm:dev:watch"
   },
   "keywords": [],
   "author": "erickwendel",
