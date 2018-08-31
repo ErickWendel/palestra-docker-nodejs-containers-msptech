@@ -29,8 +29,10 @@ services:
 
     depends_on:
       - mongodb
+      - redis
     links:
       - mongodb
+      - redis
 
   api-heroes-postgres:
     container_name: api-heroes-postgres
@@ -38,14 +40,17 @@ services:
       context: ./nodejs-with-postgres-api-example
     ports:
       - 3000:3000
+
     environment:
       POSTGRES_HOST: postgres:mysecretpassword@postgres:5432
       PORT: 3000
 
     depends_on:
       - postgres
+      - redis
     links:
       - postgres
+      - redis
 
   postgres:
     container_name: postgres

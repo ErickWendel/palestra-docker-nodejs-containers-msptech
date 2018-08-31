@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2-docker lib/index.js",
+    "start": "pm2-docker --watch lib/index.js",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "dev:watch": "nodemon lib/index.js",
-    "dev": "concurrently npm:build:watch npm:dev:watch"
+    "dev": "concurrently npm:build:watch npm:start"
   },
   "keywords": [],
   "author": "erickwendel",
@@ -17,13 +16,16 @@
   "dependencies": {
     "@types/hapi": "^15.0.2",
     "@types/joi": "^13.0.5",
+    "@types/redis": "^2.8.6",
     "@types/sequelize": "^4.27.20",
+    "concurrently": "^4.0.1",
     "hapi": "^15.2.0",
     "hapi-swagger": "^7.10.0",
     "inert": "^4.2.1",
     "joi": "^13.1.2",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
+    "redis": "^2.8.0",
     "sequelize": "^4.37.9",
     "vision": "^4.1.1"
   }

@@ -1,6 +1,16 @@
 import * as Hapi from 'hapi';
 import * as Joi from 'joi';
 import { MongoClient } from 'mongodb';
+import * as Redis from 'redis';
+// const publisher = Redis.createClient(6379, 'redis');
+const subscriber = Redis.createClient(6379, 'redis');
+// setInterval(() => {
+//   publisher.publish(
+//     'heroes:create',
+//     JSON.stringify({ name: 'Batman', power: 'Smarter' }),
+//   );
+// }, 1000);
+subscriber.subscribe('heroes:create');
 
 const Inert = require('inert');
 const Vision = require('vision');
@@ -15,6 +25,13 @@ server.connection({ port });
   const connection = await MongoClient.connect(connectionString);
   console.log('mongo db is running');
   const db = connection.db('heroes').collection('hero');
+
+  subscriber.on('message', (channel, value) =>
+    db.insert({
+      ...JSON.parse(value),
+      fromPostgres: true,
+    }),
+  );
   await server.register([
     Inert,
     Vision,
