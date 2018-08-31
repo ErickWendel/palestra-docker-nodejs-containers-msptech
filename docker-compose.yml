@@ -1,0 +1,48 @@
+version: '3'
+services:
+  mongodb:
+    container_name: mongodb
+    restart: always
+    image: mongo:4
+    ports:
+      - 27017:27017
+
+  api-heroes-mongodb:
+    container_name: api-heroes-mongodb
+    build:
+      context: ./nodejs-with-mongodb-api-example
+    ports:
+      - 4000:3000
+    environment:
+      MONGO_URL: mongodb
+      PORT: 3000
+
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+
+  api-heroes-postgres:
+    container_name: api-heroes-postgres
+    build:
+      context: ./nodejs-with-postgres-api-example
+    ports:
+      - 3000:3000
+    environment:
+      POSTGRES_HOST: postgres:mysecretpassword@postgres:5432
+      PORT: 3000
+
+    depends_on:
+      - postgres
+    links:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: heroes
