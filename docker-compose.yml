@@ -40,7 +40,8 @@ services:
       context: ./nodejs-with-postgres-api-example
     ports:
       - 3000:3000
-
+    volumes:
+      - ./nodejs-with-postgres-api-example:/src
     environment:
       POSTGRES_HOST: postgres:mysecretpassword@postgres:5432
       PORT: 3000

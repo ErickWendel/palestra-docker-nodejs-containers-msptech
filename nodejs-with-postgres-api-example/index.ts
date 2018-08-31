@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 server.connection({ port });
 import * as Redis from 'redis';
 const publisher = Redis.createClient(6379, 'redis');
+console.log('AEWWW4');
 
 (async () => {
   if (!process.env.POSTGRES_HOST) {

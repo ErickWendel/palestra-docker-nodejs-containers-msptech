@@ -18,7 +18,6 @@ const HapiSwagger = require('hapi-swagger');
 const server = new Hapi.Server();
 const port = process.env.PORT || 3000;
 server.connection({ port });
-
 (async () => {
   const connectionString = `mongodb://${process.env.MONGO_URL ||
     'localhost'}/heroes`;
